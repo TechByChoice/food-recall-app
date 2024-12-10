@@ -1,7 +1,7 @@
 import os
 import requests
 import schedule
-import time  
+import time 
 from fastapi import FastAPI
 from pymongo import MongoClient
 from dotenv import load_dotenv
