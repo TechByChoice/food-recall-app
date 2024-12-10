@@ -11,6 +11,7 @@ load_dotenv()
 
 app = FastAPI()
 
+
 # MongoDB connection
 # mongodb+srv://<username>:<password>@palabras-express-api.whbeh.mongodb.net/?retryWrites=true&w=majority&
 MONGO_URI = os.getenv("MONGO_URI")
@@ -29,4 +30,13 @@ def root():
 def update_data():
     response = requests.get(FDA_API_URL, params=FDA_API_QUERY)
     data = response.json()
-    return data
+
+    for record in data.get("results", []):
+        collection.update_one(
+            {"_id":
+	            record["recall_number"]},
+            {"$set": record},
+            upsert=True
+        )
+
+    return {"message": "Data successfully updated."}
