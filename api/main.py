@@ -3,13 +3,24 @@ import requests
 import schedule
 import time 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from pymongo import MongoClient
+from bson import ObjectId
 from dotenv import load_dotenv
 
 # Load environment variables from a .env file (if it exists)
 load_dotenv()
 
 app = FastAPI()
+
+# Add CORS middleware
+app.add_middleware(
+	CORSMiddleware,
+	allow_origins=["*"], # Allow all requests, Alternative is to use allow_origins["http://localhost:3000"]
+	allow_credentials=True,
+	allow_methods=["*"],
+	allow_headers=["*"],
+)
 
 # MongoDB configuration using environment variables
 # mongodb+srv://<username>:<password>@palabras-express-api.whbeh.mongodb.net/?retryWrites=true&w=majority&
@@ -25,6 +36,25 @@ FDA_API_QUERY = {"search": 'distribution_pattern:"nationwide"', "limit": 15}
 client = MongoClient(MONGO_URI)
 db = client[DB_NAME]
 collection = db[COLLECTION_NAME]
+
+def format_data(record):
+	"""
+	Convert MongoDB records to JSON serialable format.
+	"""
+	if "_id" in record:
+		record["_id"] = str(record["_id"])
+	return record
+
+def get_data():
+	"""
+	Retrieve data from the MongoDB database.
+	"""
+	try:
+		data = list(collection.find())
+		print(data)
+		return data
+	except Exception as e:
+		print(f"Error: {e}")
 
 def fetch_and_update_data():
 	"""
@@ -61,6 +91,20 @@ def root():
 	Root endpoint to provide a welcome message.
 	"""
 	return {"message": "Welcome to the FDA Enforcement Data API. Visit /update-data to manually update data."}
+
+# Get Data from MongoDB
+@app.get("/data")
+def get_data():
+	"""
+	Retrieve data from MongoDB.
+	"""
+	try:
+		data = list(collection.find())
+		# Convert ObjectId to string for JSON serialization
+		formatted_data = [format_data(record) for record in data]
+		return {"data": formatted_data}
+	except Exception as e:
+		return {"error": f"An error occorred: {e}"}
 
 # FastAPI route to trigger data update manually
 @app.get("/update-data")
