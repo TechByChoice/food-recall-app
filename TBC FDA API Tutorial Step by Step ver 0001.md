@@ -17,6 +17,8 @@ Other Python API libraries, like Flask or Django REST Framework, are powerful bu
 ### Why Not Node.js or Full-Stack Next.js?
 While Node.js or a full-stack Next.js app could also handle this project, Python's robust data-processing libraries make it ideal for adding machine learning (ML) capabilities later. With Python, I can integrate ML models to analyze and predict trends in food recalls or implement retrieval-augmented generation (RAG) systems to enable conversational interactions.
 
+All that being true, I chose Python because I wanted to build something with Python. I've been intrigued by the tool for years and I've built plenty of tools with Node.js. I'm excited to learn more about Python and this won't be the last thing I build with it.
+
 ---
 
 ## Backend Architecture Overview
@@ -341,4 +343,12 @@ This completes the first part of building the backend for a food recall tracking
 4. Automated data fetching with `schedule`.
 
 In the next part, we’ll build a frontend using Next.js to display and interact with the data. Stay tuned!
+
+Did you enjoy reading this tutorial?
+Do you have any questions or need help using it?
+What would you like to learn next?
+
+Let me know in the comments below!
+Or use the chat bubble in the lower right to chat in real time.
+Schedule an appointment to talk and get a free hour of consulting using the chat bubble in the lower right corner of the screen.
 
