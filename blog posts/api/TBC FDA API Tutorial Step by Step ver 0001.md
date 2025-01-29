@@ -1,4 +1,4 @@
-# Building a Food Recall Tracking App with Python, FastAPI, and MongoDB (Part 1)
+# Building a Food Recall Tracking App with Python, FastAPI, and MongoDB (Part 0)
 
 Food recalls can have significant impacts on public health and safety, but tracking and understanding these recalls can be challenging. This multipart tutorial series will guide you through creating a food recall tracking tool that leverages the FDA's food recall API. In this first part, we'll focus on building the backend API with Python, FastAPI, and MongoDB to pull and store data from the FDA API. Future installments will cover the frontend, built using Next.js, and additional features like machine learning and conversational interfaces.
 
